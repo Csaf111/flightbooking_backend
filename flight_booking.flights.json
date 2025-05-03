@@ -1,0 +1,273 @@
+[{
+  "_id": {
+    "$oid": "67d181c667be3aaab84bb2e7"
+  },
+  "flight_number": "EK202",
+  "airline": "Emirates",
+  "departure_airport": "DXB",
+  "arrival_airport": "JFK",
+  "departure_time": "2025-06-10T08:00:00",
+  "arrival_time": "2025-06-10T16:00:00",
+  "duration": 14,
+  "price": 1200,
+  "seats_available": 150,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": [
+    {
+      "_id": "17b02875-5733-4a24-a006-ac2931785811",
+      "username": "john_doe",
+      "comment": "Great flight experience!",
+      "star": 5
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67d1836a67be3aaab84bb2e8"
+  },
+  "flight_number": "LH789",
+  "airline": "Lufthansa",
+  "departure_airport": "FRA",
+  "arrival_airport": "ORD",
+  "departure_time": "2025-07-15T10:30:00",
+  "arrival_time": "2025-07-15T18:15:00",
+  "duration": 9.75,
+  "price": 950,
+  "seats_available": 120,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d1839d67be3aaab84bb2e9"
+  },
+  "flight_number": "QR567",
+  "airline": "Qatar Airways",
+  "departure_airport": "DOH",
+  "arrival_airport": "LAX",
+  "departure_time": "2025-08-05T22:45:00",
+  "arrival_time": "2025-08-06T12:30:00",
+  "duration": 16.75,
+  "price": 1450,
+  "seats_available": 180,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d1974167be3aaab84bb2ea"
+  },
+  "flight_number": "QR567",
+  "airline": "Qatar Airways",
+  "departure_airport": "DOH",
+  "arrival_airport": "LAX",
+  "departure_time": "2025-08-05T22:45:00",
+  "arrival_time": "2025-08-06T12:30:00",
+  "duration": 16.75,
+  "price": 1450,
+  "seats_available": 180,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d19db967be3aaab84bb2eb"
+  },
+  "flight_number": "QR713",
+  "airline": "Qatar Airways",
+  "departure_airport": "DOH",
+  "arrival_airport": "IAH",
+  "departure_time": "2025-08-05T22:45:00",
+  "arrival_time": "2025-08-06T14:30:00",
+  "duration": 16.75,
+  "price": 1450,
+  "seats_available": 100,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d34efa970eab922adef8df"
+  },
+  "flight_number": "EK203",
+  "airline": "Emirates",
+  "departure_airport": "DXB",
+  "arrival_airport": "JFK",
+  "departure_time": "2025-06-10T08:00:00",
+  "arrival_time": "2025-06-10T16:00:00",
+  "duration": 14,
+  "price": 1200,
+  "seats_available": 150,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d34f0e970eab922adef8e0"
+  },
+  "flight_number": "LH456",
+  "airline": "Lufthansa",
+  "departure_airport": "FRA",
+  "arrival_airport": "LAX",
+  "departure_time": "2025-07-15T10:30:00",
+  "arrival_time": "2025-07-15T18:15:00",
+  "duration": 9.75,
+  "price": 950,
+  "seats_available": 120,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d34f1a970eab922adef8e1"
+  },
+  "flight_number": "AA305",
+  "airline": "American Airlines",
+  "departure_airport": "JFK",
+  "arrival_airport": "MIA",
+  "departure_time": "2025-09-12T06:00:00",
+  "arrival_time": "2025-09-12T09:15:00",
+  "duration": 3.25,
+  "price": 320,
+  "seats_available": 200,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d34f2d970eab922adef8e2"
+  },
+  "flight_number": "BA209",
+  "airline": "British Airways",
+  "departure_airport": "LHR",
+  "arrival_airport": "MIA",
+  "departure_time": "2025-07-20T12:00:00",
+  "arrival_time": "2025-07-20T17:30:00",
+  "duration": 9.5,
+  "price": 870,
+  "seats_available": 180,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d34f39970eab922adef8e3"
+  },
+  "flight_number": "AF066",
+  "airline": "Air France",
+  "departure_airport": "CDG",
+  "arrival_airport": "SFO",
+  "departure_time": "2025-08-30T14:00:00",
+  "arrival_time": "2025-08-30T23:00:00",
+  "duration": 11,
+  "price": 990,
+  "seats_available": 160,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d34fd1970eab922adef8e4"
+  },
+  "flight_number": "SQ321",
+  "airline": "Singapore Airlines",
+  "departure_airport": "LHR",
+  "arrival_airport": "SIN",
+  "departure_time": "2025-09-18T21:00:00",
+  "arrival_time": "2025-09-19T17:45:00",
+  "duration": 13.75,
+  "price": 1350,
+  "seats_available": 140,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d34fe6970eab922adef8e5"
+  },
+  "flight_number": "DL123",
+  "airline": "Delta Airlines",
+  "departure_airport": "ATL",
+  "arrival_airport": "SEA",
+  "departure_time": "2025-10-01T07:30:00",
+  "arrival_time": "2025-10-01T10:45:00",
+  "duration": 5.25,
+  "price": 400,
+  "seats_available": 220,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d34ff1970eab922adef8e6"
+  },
+  "flight_number": "QF002",
+  "airline": "Qantas",
+  "departure_airport": "SYD",
+  "arrival_airport": "LAX",
+  "departure_time": "2025-11-05T16:00:00",
+  "arrival_time": "2025-11-05T06:30:00",
+  "duration": 14.5,
+  "price": 1450,
+  "seats_available": 180,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+},
+{
+  "_id": {
+    "$oid": "67d34ffc970eab922adef8e7"
+  },
+  "flight_number": "AI127",
+  "airline": "Air India",
+  "departure_airport": "DEL",
+  "arrival_airport": "ORD",
+  "departure_time": "2025-12-01T23:50:00",
+  "arrival_time": "2025-12-02T10:00:00",
+  "duration": 15.2,
+  "price": 1100,
+  "seats_available": 175,
+  "baggage_allowance": "23kg",
+  "status": "On Time",
+  "wifi_available": false,
+  "entertainment": [],
+  "reviews": []
+}]

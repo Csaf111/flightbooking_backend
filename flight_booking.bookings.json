@@ -1,0 +1,23 @@
+[{
+  "_id": "34792b04-c7ca-4fe6-9da7-21bc1c091fcf",
+  "passenger_name": "John Doe",
+  "flight_number": "EK202",
+  "seat_class": "Economy",
+  "contact_details": "johndoe@example.com",
+  "booking_time": {
+    "$date": "2025-03-14T00:48:46.059Z"
+  }
+},
+{
+  "_id": "2e873ea4-f9b1-4fa4-ad5c-7b31b862a905",
+  "passenger_name": "John Doe",
+  "passport_number": "A1234567",
+  "email": "johndoe@gmail.com",
+  "phone_number": "+441234567890",
+  "flight_number": "EK203",
+  "seat_class": "Economy",
+  "contact_details": "johndoe@gmail.com",
+  "booking_time": {
+    "$date": "2025-03-14T01:36:03.882Z"
+  }
+}]

@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "67d166e12fcfcb776e0e7954"
+  },
+  "username": "admin2",
+  "password": {
+    "$binary": {
+      "base64": "JDJiJDEyJDhucEFnNE9BcUNGUnF3QWZhUm1yUU82UTFJc1ZtVTEyQXpNeGdvS0g4b3IuZU5HUEUwZTVH",
+      "subType": "00"
+    }
+  },
+  "admin": true
+},
+{
+  "_id": {
+    "$oid": "67d17ac7d3e4dca8bff6210e"
+  },
+  "username": "mad",
+  "password": {
+    "$binary": {
+      "base64": "JDJiJDEyJHBFN0RZWFhJU1EvanNHaE1mQS96OE9QUWhPUGFXZ0RGSEE2Nm50bHNCbi9ITnNvdVlubTRH",
+      "subType": "00"
+    }
+  },
+  "admin": false
+},
+{
+  "_id": {
+    "$oid": "67d3578558704211ae8e37ff"
+  },
+  "username": "max",
+  "password": {
+    "$binary": {
+      "base64": "JDJiJDEyJFU0dTZCSEkyb0NvbWNFeEh3MlBYRE9BZU0yOFY3eXZqR3BZOXdBQW4xUlVaV3Z3eU1BelR1",
+      "subType": "00"
+    }
+  },
+  "admin": false
+}]

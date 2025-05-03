@@ -1,0 +1,668 @@
+{
+	"info": {
+		"_postman_id": "1e2670f0-8775-4aa7-94f7-5e54ba798862",
+		"name": "Flight_dataset",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41817092"
+	},
+	"item": [
+		{
+			"name": "Flight Dataset",
+			"item": [
+				{
+					"name": "logout",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin_1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4yIiwiYWRtaW4iOnRydWUsImV4cCI6MTc0MTkwNTQ3OX0.4kVNBDwGoMpP1wWk9yK4Mt7A3_QJQ5uM4Xf3SQATDqY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/logout",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"logout"
+							]
+						},
+						"description": "Logs out the authenticated user by invalidating the current session token. Users must provide a valid JWT token in the request header."
+					},
+					"response": []
+				},
+				{
+					"name": "create_booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibWF4IiwiYWRtaW4iOmZhbHNlLCJleHAiOjE3NDE5MTc5Mjl9.Tb307Zjacjp600ouK_MKLRs7Xw9SQ8SPqOwSvAeBrNM",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"passenger_name\": \"John Doe\",\r\n    \"passport_number\": \"A1234567\",\r\n    \"email\": \"johndoe@gmail.com\",\r\n    \"phone_number\": \"+441234567890\",\r\n    \"flight_number\": \"EK203\",\r\n    \"seat_class\": \"Economy\",\r\n    \"contact_details\": \"johndoe@gmail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/bookings",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"bookings"
+							]
+						},
+						"description": "Creates a new flight booking for a passenger. Requires authentication and passenger details, including name, passport number, contact information, and flight details."
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"description": "Retrieves a list of all bookings in the system. Requires authentication. Admins can view all bookings, while users can only view their own."
+					},
+					"response": []
+				},
+				{
+					"name": "get_specific_booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"description": "Retrieves details of a specific booking using the booking ID. Requires authentication. Users can only access their own bookings."
+					},
+					"response": []
+				},
+				{
+					"name": "update_booking",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibWF4IiwiYWRtaW4iOmZhbHNlLCJleHAiOjE3NDE5MTQ3MTR9.P8XG9F9asCuPKDoSUvfHQUfPwLTPSrEbBIPU34NfL50",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"seat_class\": \"Business\",\r\n    \"contact_details\": \"johndoe@example.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/bookings/2d25eefd-0a9e-4609-9d0d-5e3265b8846e",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"bookings",
+								"2d25eefd-0a9e-4609-9d0d-5e3265b8846e"
+							]
+						},
+						"description": "Allows a user to update their booking details, such as contact information or seat class. Requires authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "delete_booking",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibWF4IiwiYWRtaW4iOmZhbHNlLCJleHAiOjE3NDE5MTUwMTN9.XcSpZzLOYUw12sNHjUzDyjjgLv5OUhc-cqynHe_Ur9A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5001/bookings/2d25eefd-0a9e-4609-9d0d-5e3265b8846e",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"bookings",
+								"2d25eefd-0a9e-4609-9d0d-5e3265b8846e"
+							]
+						},
+						"description": "Cancels a specific booking. Users can only cancel their own bookings. Admins can remove any booking."
+					},
+					"response": []
+				},
+				{
+					"name": "add reviews",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibWF4IiwiYWRtaW4iOmZhbHNlLCJleHAiOjE3NDE5MDg4MjV9.kxR81kJCMQTeCjKpGW2ayidXaVGt4j-xAmzLBdb03AM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Patel\",\r\n    \"comment\": \"Decent flight, food was excellent.\",\r\n    \"star\": 4\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/flights/AI127/reviews",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"flights",
+								"AI127",
+								"reviews"
+							]
+						},
+						"description": "Allows users to submit a review for a specific flight. The review includes a username, comment, and rating (stars). Requires authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "update review",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibWF4IiwiYWRtaW4iOmZhbHNlLCJleHAiOjE3NDE5MDk1ODR9.DyV94Fm8sTWL2rh56hfUJjLksBDzEm9-FuFlJbw_W8U",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\": \"Was a smooth flight, the crew members were very helpful. Could have provided more towls\",\r\n    \"star\": 4\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/flights/EK203/reviews/fa611e5a-2dfc-4dd8-bd9a-4d6347de388c",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"flights",
+								"EK203",
+								"reviews",
+								"fa611e5a-2dfc-4dd8-bd9a-4d6347de388c"
+							]
+						},
+						"description": "Allows a user to update their existing review for a specific flight. Users can edit the comment and rating. Requires authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Reviews",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibWF4IiwiYWRtaW4iOmZhbHNlLCJleHAiOjE3NDE5MTA5NDh9.lvheNv5d1M70CpsJrvUEezxnidjsWja1SotlLRhXxGk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5001/flights/QR713/reviews/dbbaa1f0-19f3-4ee1-ba13-8198c45fce7c",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"flights",
+								"QR713",
+								"reviews",
+								"dbbaa1f0-19f3-4ee1-ba13-8198c45fce7c"
+							]
+						},
+						"description": "Deletes a specific review for a flight. This action is restricted to admin users only. Requires authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "Reviews for all flight",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5001/flights/reviews",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"flights",
+								"reviews"
+							]
+						},
+						"description": "Retrieves all reviews from all flights. Useful for administrators or aggregating feedback. Requires authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "test",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdCIsImFkbWluIjpmYWxzZSwiZXhwIjoxNzQxNzc3NjA1fQ.nXBL9uQBQsK_EgCosC_qK4-t8D-HkHy8L_FPM91JIdo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"mad\",\r\n    \"password\": \"mad_s\",\r\n    \"admin\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"register"
+							]
+						},
+						"description": "Creates a new user account. Requires username, password, and email. The user can then log in to access booking and review features."
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin_1",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4yIiwiYWRtaW4iOnRydWUsImV4cCI6MTc0MTc3ODYxMH0.dqJrKc_FIYpxjRpjp4KytYQYvsGXNKYSChUgYqrSS7s",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5001/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"login"
+							]
+						},
+						"description": "Authenticates a user and generates a JWT token for access to protected routes. Requires username and password via Basic Authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "flights",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4yIiwiYWRtaW4iOnRydWUsImV4cCI6MTc0MTc5MDc4MH0.jUnsg5pBvWMvcVAqkTmy49gzSWc_hZrX4uY_jxL2JZk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"flight_number\": \"QR713\",\r\n        \"airline\": \"Qatar Airways\",\r\n        \"departure_airport\": \"DOH\",\r\n        \"arrival_airport\": \"IAH\",\r\n        \"departure_time\": \"2025-08-05T22:45:00\",\r\n        \"arrival_time\": \"2025-08-06T14:30:00\",\r\n        \"duration\": 16.75,\r\n        \"price\": 1450.00,\r\n        \"seats_available\": 100\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/flights",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"flights"
+							]
+						},
+						"description": "Creates a new flight entry in the system. Only admins can add new flights. Requires authentication and valid flight details."
+					},
+					"response": []
+				},
+				{
+					"name": "flight update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4yIiwiYWRtaW4iOnRydWUsImV4cCI6MTc0MTc4MDkzOH0.C6ow7oj1YUQa25IAGbIVLsXihq_0XfREWIEKmnexVlI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"airline\": \"Emirates\",\r\n    \"arrival_airport\": \"JFK\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/flights/67d170ce98dd367a45cd1ccf",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"flights",
+								"67d170ce98dd367a45cd1ccf"
+							]
+						},
+						"description": "Updates details of an existing flight, such as airline, departure, and arrival details. Only admin users can update flights. Requires authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "search flight",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibWFkIiwiYWRtaW4iOmZhbHNlLCJleHAiOjE3NDE3ODM1NjN9.fh2JGFegoRBHE6KF4KRAY91ci4NxcA7ywUWYT2qmAm0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/flights/67d170ce98dd367a45cd1ccf",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"flights",
+								"67d170ce98dd367a45cd1ccf"
+							]
+						},
+						"description": "Retrieves flights based on filters like departure location, arrival location, and date. Supports sorting by price or duration."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete flights",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4yIiwiYWRtaW4iOnRydWUsImV4cCI6MTc0MTkwMjg4Mn0.kpVBEWfcE9wsm3tEQTwuFEn4nSPkVpTUeK8wSVZKDrw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/flights/67d170ce98dd367a45cd1ccf",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"flights",
+								"67d170ce98dd367a45cd1ccf"
+							]
+						},
+						"description": "Removes a flight from the system. Only admins can delete flights."
+					},
+					"response": []
+				},
+				{
+					"name": "update_flight_status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4yIiwiYWRtaW4iOnRydWUsImV4cCI6MTc0MTkxODU0OH0.t0HglShbUGRp0kyl2IzfrZ3Wag87SN_0pw3GEJR7SLk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"Delayed\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/flights/EK203/status",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"flights",
+								"EK203",
+								"status"
+							]
+						},
+						"description": "Updates the status of a flight (e.g., 'On Time', 'Delayed', 'Cancelled'). Only admins can modify flight statuses."
+					},
+					"response": []
+				},
+				{
+					"name": "get reviews",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibWF4IiwiYWRtaW4iOmZhbHNlLCJleHAiOjE3NDE5MTE0NjF9.g8jqnA-TEIPLJGHvepkVtE0qSNuqSfbM6M57F_hTTUw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5001/flights/QR713/reviews",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"flights",
+								"QR713",
+								"reviews"
+							]
+						},
+						"description": "Fetches all reviews for a specific flight. Users can view feedback from other passengers about their flight experience."
+					},
+					"response": []
+				}
+			],
+			"description": "The Flight Dataset API provides endpoints to manage flights, bookings, and reviews. Users can search for flights, book tickets and leave reviews. Authentication is required for most operations, with admin privileges for flight and review management."
+		}
+	]
+}

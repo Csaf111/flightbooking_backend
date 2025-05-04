@@ -34,24 +34,34 @@ def register():
     return make_response(jsonify({'message': 'User registered successfully'}), 201)
 
 ####################################### LOGIN ###########################################
-@auth_bp.route('/login', methods=['GET'])
+@auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    auth = request.authorization
-    if auth:
-        user = users.find_one({'username': auth.username})
-        if user is not None:
-            if bcrypt.checkpw(bytes(auth.password, 'UTF-8'), user['password']):
-                token = jwt.encode({
-                    'user': auth.username,
-                    'admin': user['admin'],
-                    'exp': datetime.datetime.now(datetime.UTC) + datetime.timedelta(minutes=30)
-                }, globalaccess.SECRET_KEY, algorithm='HS256')
-                return make_response(jsonify({'token': token}), 200)
-            else:
-                return make_response(jsonify({'message': 'Invalid password'}), 401)
+    if request.method == 'POST':
+        # POST method - frontend JSON body
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+    else:
+        # GET method - Basic Auth
+        auth = request.authorization
+        if not auth or not auth.username or not auth.password:
+            return make_response(jsonify({'message': 'Authentication required'}), 401)
+        username = auth.username
+        password = auth.password
+
+    user = users.find_one({'username': username})
+    if user:
+        if bcrypt.checkpw(password.encode('UTF-8'), user['password']):
+            token = jwt.encode({
+                'user': username,
+                'admin': user['admin'],
+                'exp': datetime.datetime.now(datetime.UTC) + datetime.timedelta(minutes=30)
+            }, globalaccess.SECRET_KEY, algorithm='HS256')
+            return make_response(jsonify({'token': token, 'user': {'username': username}}), 200)
         else:
-            return make_response(jsonify({'message': 'User not found'}), 404)
-    return make_response(jsonify({'message': 'Authentication required'}), 401)
+            return make_response(jsonify({'message': 'Invalid password'}), 401)
+    else:
+        return make_response(jsonify({'message': 'User not found'}), 404)
 
 
 ####################################### LOGOUT ###########################################
@@ -64,4 +74,3 @@ def logout():
     
     blacklist.insert_one({'token': token})
     return make_response(jsonify({'message': 'Logged out'}), 200)
-

@@ -1,15 +1,12 @@
 from flask import Flask
-from flask_cors import CORS  # ✅ Import CORS
-
 from blueprints.flights.flights import flights_bp
 from blueprints.flight_reviews.flight_reviews import reviews_bp
 from blueprints.auth.auth import auth_bp
 from blueprints.users.users import users_bp
+from flask_cors import CORS
 
 app = Flask(__name__)
-
-# ✅ Enable CORS for all routes
-CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
+CORS(app, supports_credentials=True)
 
 # ✅ Register blueprints
 app.register_blueprint(flights_bp)

@@ -1,129 +1,80 @@
-Here's a complete, professional `README.md` file for your [Flight Booking Backend](https://github.com/Csaf111/flightbooking_backend) project:
+# Flight Booking Backend
 
----
+A Flask and MongoDB API for flight search, reservation management, reviews, and role-aware administration. It is designed to support the companion Angular frontend while keeping customer booking data separated by account.
 
-```markdown
-# ✈️ Flight Booking Backend API
+## What it demonstrates
 
-This is the backend API for the **Flight Booking System**, developed using **Flask** and **MongoDB**. The system allows users to search for flights, book tickets, and manage their reservations securely with JWT-based authentication.
+- JWT authentication with short-lived, revocable tokens
+- bcrypt password hashing
+- Customer-only access to bookings; administrators can view and manage all bookings
+- Flight search and status management
+- API regression tests using an in-memory MongoDB substitute
+- GitHub Actions continuous integration
 
----
+## Prerequisites
 
-## 🔧 Technologies Used
+- Python 3.10+
+- MongoDB (for local application use)
 
-- **Python** (Flask)
-- **MongoDB** (NoSQL database)
-- **PyJWT** for authentication
-- **Flask-CORS** for frontend integration
-- **Flask-PyMongo** for MongoDB connection
-
----
-
-## 📁 Project Structure
-
-```
-
-flightbooking\_backend/
-│
-├── app.py                # Main application file
-├── auth.py               # User registration & login
-├── flights.py            # Flight CRUD operations
-├── bookings.py           # Booking management (create, update, delete)
-├── config.py             # App configuration & secrets
-├── utils.py              # Utility functions (token handling, validation)
-├── requirements.txt      # Python dependencies
-└── README.md             # Project documentation
-
-````
-
----
-
-## 🚀 Features
-
-- ✅ User registration and login (with hashed passwords)
-- 🔐 JWT authentication and token validation
-- ✈️ CRUD operations for managing flights
-- 🧾 Create, view, update, and delete bookings
-- 📦 JSON-based API responses
-- 🌍 Cross-origin support for Angular frontend
-
----
-
-## 📦 Installation
-
-1. **Clone the repo**
+## Local setup
 
 ```bash
 git clone https://github.com/Csaf111/flightbooking_backend.git
 cd flightbooking_backend
-````
-
-2. **Create a virtual environment**
-
-```bash
-python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
-```
-
-3. **Install dependencies**
-
-```bash
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
+cp .env.example .env
 ```
 
-4. **Run the application**
+Set the values from `.env.example` in your shell (or your preferred local environment loader). Generate a strong value for `FLIGHT_BOOKING_SECRET_KEY`; never commit it. The application fails fast if the variable is missing, rather than falling back to a source-controlled secret.
 
 ```bash
+export FLIGHT_BOOKING_SECRET_KEY='replace-with-a-long-random-secret'
+export MONGO_URI='mongodb://localhost:27017'
+export CORS_ALLOWED_ORIGINS='http://localhost:4200'
 python app.py
 ```
 
-Backend will run at: `http://127.0.0.1:5001`
+The API listens on `http://127.0.0.1:5001` by default.
 
----
+## Authentication and access model
 
-## 🧪 API Endpoints
+Register at `POST /register` or log in at `POST /login`. Send the returned token as an `x-access-token` request header to protected endpoints.
 
-| Endpoint         | Method | Description                 |
-| ---------------- | ------ | --------------------------- |
-| `/register`      | POST   | Register a new user         |
-| `/login`         | POST   | Login and receive JWT token |
-| `/flights`       | GET    | Retrieve all flights        |
-| `/flights`       | POST   | Add a new flight            |
-| `/bookings`      | POST   | Book a flight               |
-| `/bookings/<id>` | PUT    | Update a booking            |
-| `/bookings/<id>` | DELETE | Cancel a booking            |
-| `/mybookings`    | GET    | View user-specific bookings |
+| Resource | Customer | Administrator |
+| --- | --- | --- |
+| Own booking | Read, update, delete | Read, update, delete |
+| Other customer booking | Not accessible | Read, update, delete |
+| User directory | Not accessible | Read |
+| Flight status | Not accessible | Update |
 
-**All protected endpoints require `Authorization: Bearer <token>` in headers.**
+Tokens include a unique identifier (`jti`). `GET /logout` records that identifier so the token cannot be reused without persisting the bearer token itself.
 
----
+## Core endpoints
 
-## 🛠 Environment Variables (optional)
+| Method | Endpoint | Authentication | Purpose |
+| --- | --- | --- | --- |
+| POST | `/register` | No | Create an account |
+| POST | `/login` | No | Obtain a JWT |
+| GET | `/flights` | No | Search flights |
+| GET | `/flights/:flight_number` | No | Retrieve flight details |
+| POST | `/bookings` | Yes | Create a booking for the authenticated user |
+| GET | `/bookings` | Yes | List the caller's bookings (or all for an admin) |
+| GET/PUT/DELETE | `/bookings/:booking_id` | Yes | Manage an accessible booking |
+| PUT | `/flights/:flight_number/status` | Admin | Update flight status |
 
-You can store sensitive data like secret keys in a `.env` file:
+## Quality checks
 
+```bash
+pytest
 ```
-SECRET_KEY=your-secret-key
-MONGO_URI=mongodb://localhost:27017/flightbooking
-```
 
----
+The test suite uses `mongomock`; it does not require a running MongoDB instance. Pull requests and pushes to `main` run the same command in GitHub Actions.
 
-## 🤝 Frontend Integration
+## Security notes
 
-This backend integrates seamlessly with the [Angular frontend](https://github.com/Csaf111/flightbooking_frontend) to provide a complete flight booking experience.
-
----
-
-## 📌 License
-
-This project is open-source under the MIT License.
-
----
-
-## 👨‍💻 Author
-
-**Safwan Chowdhury**
-📧(https://www.linkedin.com/in/safwan-chowdhury)
-
-
+- Do not set `FLASK_DEBUG=1` outside local development.
+- Restrict `CORS_ALLOWED_ORIGINS` to the deployed frontend origin(s).
+- Rotate any secret that was previously committed, even if the file was later removed.
+- Production deployments should use a managed MongoDB instance and an environment-specific secret manager.

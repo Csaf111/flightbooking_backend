@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, g, request, jsonify
 from decorators import jwt_required
 from flask_cors import cross_origin
 
@@ -6,6 +6,7 @@ import jwt
 import datetime
 import bcrypt
 import globalaccess
+import uuid
 
 auth_bp = Blueprint('auth_bp', __name__)
 
@@ -35,11 +36,7 @@ def register():
     users.insert_one(new_user)
 
     # Generate token immediately after signup
-    token = jwt.encode({
-        'user': new_user['username'],
-        'admin': new_user['admin'],
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
-    }, globalaccess.SECRET_KEY, algorithm='HS256')
+    token = _create_token(new_user)
 
     return jsonify({
         'message': 'User registered successfully',
@@ -65,11 +62,7 @@ def login():
     if not bcrypt.checkpw(password.encode('utf-8'), user['password']):
         return jsonify({'message': 'Invalid username or password'}), 401
 
-    token = jwt.encode({
-        'user': username,
-        'admin': user.get('admin', False),
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
-    }, globalaccess.SECRET_KEY, algorithm='HS256')
+    token = _create_token(user)
 
     return jsonify({
         'token': token,
@@ -81,9 +74,15 @@ def login():
 @cross_origin()
 @jwt_required
 def logout():
-    token = request.headers.get('x-access-token')
-    if not token:
-        return jsonify({'message': 'Token is missing'}), 400
-
-    blacklist.insert_one({'token': token})
+    blacklist.insert_one({'jti': g.token_claims['jti'], 'expires_at': g.token_claims['exp']})
     return jsonify({'message': 'Logged out successfully'}), 200
+
+
+def _create_token(user):
+    """Issue a short-lived token with an identifier that can be revoked safely."""
+    return jwt.encode({
+        'user': user['username'],
+        'admin': user.get('admin', False),
+        'jti': str(uuid.uuid4()),
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+    }, globalaccess.SECRET_KEY, algorithm='HS256')

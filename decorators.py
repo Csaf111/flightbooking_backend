@@ -1,4 +1,4 @@
-from flask import request, jsonify, make_response
+from flask import g, request, jsonify, make_response
 import jwt
 from functools import wraps
 import globalaccess
@@ -14,13 +14,18 @@ def jwt_required(func):
         if not token:
             return make_response(jsonify({'message': 'Token is missing'}), 401)
         try:
-            data = jwt.decode(token, globalaccess.SECRET_KEY , algorithms='HS256')
-        except:
+            data = jwt.decode(token, globalaccess.SECRET_KEY, algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            return make_response(jsonify({'message': 'Token has expired'}), 401)
+        except jwt.InvalidTokenError:
             return make_response(jsonify({'message': 'Token is invalid'}), 401)
         
-        bl_token = blacklist.find_one({'token': token})
+        bl_token = blacklist.find_one({'jti': data.get('jti')})
         if bl_token is not None:
-            return make_response(jsonify({'message': 'Token is blacklist invalid'}), 401)
+            return make_response(jsonify({'message': 'Token has been revoked'}), 401)
+
+        g.current_user = data['user']
+        g.token_claims = data
         
         return func(*args, **kwargs)
     return jwt_required_wrapper
@@ -28,9 +33,7 @@ def jwt_required(func):
 def admin_required(func):
     @wraps(func)
     def admin_required_wrapper(*args, **kwargs):
-        token = request.headers['x-access-token']
-        data = jwt.decode(token, globalaccess.SECRET_KEY, algorithms=["HS256"])
-        if data['admin']:
+        if g.token_claims.get('admin', False):
             return func(*args, **kwargs)
         else:
             return make_response(jsonify({'message': 'Admin access required'}), 403)

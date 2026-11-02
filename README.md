@@ -1,129 +1,74 @@
-Here's a complete, professional `README.md` file for your [Flight Booking Backend](https://github.com/Csaf111/flightbooking_backend) project:
+# Flight Booking Backend
 
----
+A Flask REST API for a flight-booking workflow: authentication, flight discovery, bookings, and flight reviews. It is designed as the backend counterpart to the Angular flight-booking client in this account.
 
-```markdown
-# ✈️ Flight Booking Backend API
+## What it demonstrates
 
-This is the backend API for the **Flight Booking System**, developed using **Flask** and **MongoDB**. The system allows users to search for flights, book tickets, and manage their reservations securely with JWT-based authentication.
+- Flask blueprints for feature-oriented routing
+- JWT-protected endpoints and token-blacklist support
+- MongoDB-backed application data
+- JSON API contracts with a Postman collection for manual exploration
+- Separation of authentication, flights, users, and review concerns
 
----
+## Architecture
 
-## 🔧 Technologies Used
-
-- **Python** (Flask)
-- **MongoDB** (NoSQL database)
-- **PyJWT** for authentication
-- **Flask-CORS** for frontend integration
-- **Flask-PyMongo** for MongoDB connection
-
----
-
-## 📁 Project Structure
-
+```text
+HTTP client
+   │
+Flask application (app.py)
+   ├── auth blueprint
+   ├── flights blueprint
+   ├── users blueprint
+   └── flight reviews blueprint
+   │
+MongoDB
 ```
 
-flightbooking\_backend/
-│
-├── app.py                # Main application file
-├── auth.py               # User registration & login
-├── flights.py            # Flight CRUD operations
-├── bookings.py           # Booking management (create, update, delete)
-├── config.py             # App configuration & secrets
-├── utils.py              # Utility functions (token handling, validation)
-├── requirements.txt      # Python dependencies
-└── README.md             # Project documentation
+The application factory/configuration is currently concentrated in `app.py`; feature routes live in `blueprints/`.
 
-````
+## Run locally
 
----
-
-## 🚀 Features
-
-- ✅ User registration and login (with hashed passwords)
-- 🔐 JWT authentication and token validation
-- ✈️ CRUD operations for managing flights
-- 🧾 Create, view, update, and delete bookings
-- 📦 JSON-based API responses
-- 🌍 Cross-origin support for Angular frontend
-
----
-
-## 📦 Installation
-
-1. **Clone the repo**
-
-```bash
-git clone https://github.com/Csaf111/flightbooking_backend.git
-cd flightbooking_backend
-````
-
-2. **Create a virtual environment**
-
-```bash
-python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
-```
-
-3. **Install dependencies**
-
-```bash
-pip install -r requirements.txt
-```
-
-4. **Run the application**
+1. Create and activate a virtual environment.
+2. Install the dependencies required by the imports in the project (Flask, Flask-CORS, Flask-PyMongo, PyJWT, and password-hashing support).
+3. Create a local `.env` file—never commit it—with a strong `SECRET_KEY` and a MongoDB connection string.
+4. Start the service:
 
 ```bash
 python app.py
 ```
 
-Backend will run at: `http://127.0.0.1:5001`
+The existing app configuration listens on port 5001. Import `Flight_dataset.postman_collection.json` into Postman to explore the API manually.
 
----
+## Configuration
 
-## 🧪 API Endpoints
+Keep secrets outside version control. At minimum, configure:
 
-| Endpoint         | Method | Description                 |
-| ---------------- | ------ | --------------------------- |
-| `/register`      | POST   | Register a new user         |
-| `/login`         | POST   | Login and receive JWT token |
-| `/flights`       | GET    | Retrieve all flights        |
-| `/flights`       | POST   | Add a new flight            |
-| `/bookings`      | POST   | Book a flight               |
-| `/bookings/<id>` | PUT    | Update a booking            |
-| `/bookings/<id>` | DELETE | Cancel a booking            |
-| `/mybookings`    | GET    | View user-specific bookings |
-
-**All protected endpoints require `Authorization: Bearer <token>` in headers.**
-
----
-
-## 🛠 Environment Variables (optional)
-
-You can store sensitive data like secret keys in a `.env` file:
-
-```
-SECRET_KEY=your-secret-key
+```dotenv
+SECRET_KEY=<long-random-secret>
 MONGO_URI=mongodb://localhost:27017/flightbooking
 ```
 
----
+Use unique values per environment and rotate a secret immediately if it is ever committed or shared.
 
-## 🤝 Frontend Integration
+## API surface
 
-This backend integrates seamlessly with the [Angular frontend](https://github.com/Csaf111/flightbooking_frontend) to provide a complete flight booking experience.
+The repository currently exposes routes for registration/login, flight management, booking management, and flight reviews. Protected routes require an `Authorization: Bearer <token>` header. The Postman collection is the current request-level reference; formal OpenAPI documentation is a planned improvement.
 
----
+## Validation and testing
 
-## 📌 License
+The repository includes a CI smoke check that compiles the Python sources. It does **not** claim full automated coverage. The next engineering step is to introduce a Flask test application, disposable MongoDB fixture, and endpoint-level tests for authorization and validation paths.
 
-This project is open-source under the MIT License.
+## Engineering decisions and limitations
 
----
+- MongoDB was selected for flexible document-oriented booking data.
+- The checked-in JSON files are development/sample data, not a production persistence strategy.
+- Python bytecode directories are currently present in history; the included ignore rules prevent new cache files from being added. Removing historic artifacts should be handled in a separate, carefully reviewed cleanup.
+- Production deployment should use a WSGI server, environment-based configuration, request validation, rate limiting, and a managed database.
 
-## 👨‍💻 Author
+## Related project
 
-**Safwan Chowdhury**
-📧(https://www.linkedin.com/in/safwan-chowdhury)
+- [Angular frontend](https://github.com/Csaf111/flightbooking_frontend)
 
+## License
 
+No license has been selected yet. Do not assume permission to reuse this code beyond GitHub's default terms.

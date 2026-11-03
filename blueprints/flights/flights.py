@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, g, request, jsonify, make_response
 from decorators import jwt_required, admin_required
 from bson import ObjectId
 import uuid
@@ -87,6 +87,7 @@ def book_ticket():
             "flight_number": flight_number,
             "seat_class": data["seat_class"],
             "contact_details": data["contact_details"],
+            "user_id": g.current_user,
             "booking_time": datetime.datetime.utcnow()
         }
 
@@ -111,7 +112,7 @@ def update_booking(booking_id):
             if field in data:
                 update_fields[field] = data[field]
 
-        result = bookings.update_one({"_id": booking_id}, {"$set": update_fields})
+        result = bookings.update_one(_booking_access_filter(booking_id), {"$set": update_fields})
         if result.matched_count == 0:
             return make_response(jsonify({"error": "Booking not found"}), 404)
 
@@ -124,7 +125,7 @@ def update_booking(booking_id):
 @jwt_required
 def delete_booking(booking_id):
     try:
-        result = bookings.delete_one({"_id": booking_id})
+        result = bookings.delete_one(_booking_access_filter(booking_id))
         if result.deleted_count == 0:
             return make_response(jsonify({"error": "Booking not found"}), 404)
         return make_response(jsonify({"message": "Booking deleted successfully"}), 200)
@@ -156,7 +157,8 @@ def update_flight_status(flight_number):
 @jwt_required
 def get_all_bookings():
     try:
-        bookings_list = list(bookings.find({}))
+        query = {} if g.token_claims.get('admin') else {'user_id': g.current_user}
+        bookings_list = list(bookings.find(query))
         for booking in bookings_list:
             booking["_id"] = str(booking["_id"])
         return make_response(jsonify(bookings_list), 200)
@@ -168,10 +170,18 @@ def get_all_bookings():
 @jwt_required
 def get_booking(booking_id):
     try:
-        booking = bookings.find_one({'_id': booking_id})
+        booking = bookings.find_one(_booking_access_filter(booking_id))
         if not booking:
             return make_response(jsonify({"error": "Booking not found"}), 404)
         booking["_id"] = str(booking["_id"])
         return make_response(jsonify(booking), 200)
     except Exception as e:
         return make_response(jsonify({"error": "Internal Server Error", "details": str(e)}), 500)
+
+
+def _booking_access_filter(booking_id):
+    """Allow administrators to manage every booking and customers to manage only theirs."""
+    query = {'_id': booking_id}
+    if not g.token_claims.get('admin'):
+        query['user_id'] = g.current_user
+    return query

@@ -34,6 +34,9 @@ The application factory/configuration is currently concentrated in `app.py`; fea
 4. Start the service:
 
 ```bash
+export FLIGHT_BOOKING_SECRET_KEY='replace-with-a-long-random-secret'
+export MONGO_URI='mongodb://localhost:27017'
+export CORS_ALLOWED_ORIGINS='http://localhost:4200'
 python app.py
 ```
 

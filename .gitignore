@@ -1,7 +1,15 @@
-.env
-.venv/
-venv/
+# Python
 __pycache__/
 *.py[cod]
+.venv/
+venv/
+
+# Environment and local data
+.env
+.env.*
+!.env.example
+
+# Tooling
 .pytest_cache/
 .coverage
+htmlcov/
